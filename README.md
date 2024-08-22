@@ -19,9 +19,10 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 
 - Download this zipped repository [here](https://github.com/wzkariampuzha/SurgUI/archive/refs/heads/master.zip)
 - Unzip it
-- Install Anaconda
+- Download \& install Anaconda
   - [Anaconda](https://www.anaconda.com/download/success)
-- Install VLC media player
+  - Open Anaconda Navigator
+- Download \& install VLC media player
   - [Mac install (Universal Binary)](https://get.videolan.org/vlc/3.0.21/macosx/vlc-3.0.21-universal.dmg) 
   - [Windows install](https://apps.microsoft.com/detail/xpdm1zw6815mqm?ocid=webpdpshare)
 
@@ -30,10 +31,13 @@ A graphical video annotation tool, originally developed for labeling surgical vi
     - Eg. If you copied the SurgUI-master folder	 to `C:\Users\SurgUI-master` then in the command line write `cd C:\Users\SurgUI-master`
       ```shell
       cd path/to/SurgUI-master
+      ```
+      Then run these commands:
+      ```shell
       conda env create --file environment.yml
       conda activate surgui-venv
       ```
-    - Install the software:
+      Install the software:
       ```shell
       python3 setup.py install
       ```
