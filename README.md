@@ -15,7 +15,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 - extracting and saving important frames such as critical views
 - pixel-level annotation of the images by opening in [labelme](https://github.com/wkentaro/labelme/) software
 
-## Installation for the DISE project
+## Installation for the DISE project (verified on Mac)
 
 - Download the SurgUI-master zipped repository [here](https://github.com/wzkariampuzha/SurgUI/archive/refs/heads/master.zip) 
 - Unzip it
