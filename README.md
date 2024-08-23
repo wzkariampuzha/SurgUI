@@ -17,30 +17,34 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 
 ## Installation for the DISE project
 
-- Download this zipped repository [here](https://github.com/wzkariampuzha/SurgUI/archive/refs/heads/master.zip)
+- Download the SurgUI-master zipped repository [here](https://github.com/wzkariampuzha/SurgUI/archive/refs/heads/master.zip) 
 - Unzip it
 - Download \& install Anaconda
   - [Anaconda](https://www.anaconda.com/download/success)
-  - Open Anaconda Navigator
+  - Open the Anaconda-Navigator app
+  - Update Anaconda-Navigator if necessary
 - Download \& install VLC media player
   - [Mac install (Universal Binary)](https://get.videolan.org/vlc/3.0.21/macosx/vlc-3.0.21-universal.dmg) 
   - [Windows install](https://apps.microsoft.com/detail/xpdm1zw6815mqm?ocid=webpdpshare)
 
- - Open terminal/windows powershell and run the following commands:
+ - Open the terminal app (Mac) or Windows powershell:
     - Now you need to navigate to the folder where you copied the SurgUI-master folder 
     - Eg. If you copied the SurgUI-master folder	 to `C:\Users\SurgUI-master` then in the command line write `cd C:\Users\SurgUI-master`
-      ```shell
-      cd path/to/SurgUI-master
-      ```
+      - ```shell
+        cd path/to/SurgUI-master
+        ```
       Then run these commands:
-      ```shell
-      conda env create --file environment.yml
-      conda activate surgui-venv
-      ```
+      - ```shell
+        conda env create --file environment.yml
+        ```
+
+      - ```shell
+        conda activate surgui-venv
+        ```
       Install the software:
-      ```shell
-      python3 setup.py install
-      ```
+      - ```shell
+        python3 setup.py install
+        ```
 
 ## Usage
 - Open VLC media player
