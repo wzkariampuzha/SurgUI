@@ -11,3 +11,6 @@
 .idea/
 outputs
 surgui_venv
+/videos
+/.trunk
+setup.cfg

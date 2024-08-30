@@ -43,7 +43,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
         ```
       Install the software:
       - ```shell
-        python3 setup.py install
+        python setup.py install
         ```
 
 ## Usage
