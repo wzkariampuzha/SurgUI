@@ -56,7 +56,9 @@ A graphical video annotation tool, originally developed for labeling surgical vi
     ```
 
 #### Segment labeling:
-For annotating the start and end of segments, you can modify the `rating-labels.txt` file containing the list of segments. Example files can be found in samples folder. In the software, create a timestamping panel by opening the text file. For each video that is playing, a folder with the same name is created in “outputs” directory. By pressing the save button, for each segment, a line will be added to a file in the output folder.
+For annotating the start and end of segments, click File then "Add Rating Panel" then select the `rating-labels.txt` file containing the list of segments. In the software, create a timestamping panel by opening the text file. For each video that is playing, a folder with the same name is created in “outputs” directory. By pressing the save button, for each segment, a line will be added to a file in the output folder.
+
+Add the video file to the software by clicking the “Add Video” button. The video will start playing in the VLC media player.
 
 #### Saved Annotations
 The saved images and the .json files from labelme annotations are stored in `images` folder for each video.
