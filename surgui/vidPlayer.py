@@ -363,6 +363,16 @@ class Window(QWidget):
                                 ),
                                 "a",
                             ) as out:
+                                #What exactly is this writing?
+                                #Error: 
+                                # Saving directory:  ./outputs/vidname_2022_08_05_74253496.mp4
+                                #1 1 | Time: 0:08:42 to 0:08:55
+                                # Traceback (most recent call last):
+                                # File "/Users/wzk/Documents/GitHub/SurgUI/surgui/vidPlayer.py", line 411, in open_video
+                                # ) == int(score):
+                                # ValueError: invalid literal for int() with base 10: '1 | Time: 0:08:42 to 0:08:55\n'
+                                # [1]    87051 abort      surgui
+                                
                                 for i in range(len(self.groupButtonlist[panel_index])):
                                     out.write(
                                         "{} \n".format(

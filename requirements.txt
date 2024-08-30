@@ -1,4 +1,0 @@
-pyqt5
-python-vlc
-opencv-python
-labelme
