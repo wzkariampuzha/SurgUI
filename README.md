@@ -3,7 +3,7 @@ Surgical Video Annotation Software
 </h1> 
 
 <h1 align="center">
-  <img src="samples/Picture1.png">
+  <img src="surgui.png">
 </h1>
 
 ## Description
@@ -29,22 +29,21 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 
  - Open the terminal app (Mac) or Windows powershell:
     - Now you need to navigate to the folder where you copied the SurgUI-master folder 
-    - Eg. If you copied the SurgUI-master folder	 to `C:\Users\SurgUI-master` then in the command line write `cd C:\Users\SurgUI-master`
-      - ```shell
+    - Eg. If you copied the SurgUI-master folder	 to `C:\Users\SurgUI-master` then in the command line write `cd C:\Users\SurgUI-master`. To copy the pathname of your SurgUI folder on macOS, see [here](https://support.apple.com/en-gb/guide/mac-help/mchlp1774/mac#:~:text=Show%20the%20path%20to%20a,show%20the%20path%20bar%20momentarily.).  
+    - See this example: 
+    - <img src="change-working-directory-example.png">
+    - ```shell
         cd path/to/SurgUI-master
         ```
-      Then run these commands:
-      - ```shell
+    Then run these commands:
+     - ```shell
         conda env create --file environment.yml
-        ```
-
-      - ```shell
         conda activate surgui-venv
         ```
-      Install the software:
-      - ```shell
+    Install the software:
+    - ```shell
         python setup.py install
-        ```
+      ```
 
 ## Usage
 - Open VLC media player
