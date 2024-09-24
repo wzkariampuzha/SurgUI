@@ -1,3 +1,9 @@
+0.0 Nasal Cavity Initial View
+0.1 Nasal Cavity 2nd View
+0.2 Nasal Cavity 3rd View
+0.3 Nasal Cavity 4th View
+0.4 Nasal Cavity 5th and any subsequent Return
+
 1.0 Velopharynx Initial View
 1.1 Velopharynx 2nd View 
 1.2 Velopharynx 3rd View
@@ -18,3 +24,12 @@
 3.3 Tongue/Epiglottis 4th View
 3.4 Tongue/Epiglottis 5th View
 3.5 Tongue/Epiglottis 6th and any subsequent Return
+
+4.0 Junk/Secretions
+4.1 Junk/Secretions
+4.2 Junk/Secretions
+4.3 Junk/Secretions
+4.4 Junk/Secretions
+4.5 Junk/Secretions
+4.6 Junk/Secretions
+4.7 Junk/Secretions
