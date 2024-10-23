@@ -48,7 +48,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 ## Usage
 - Open VLC media player
 
-- Open terminal and run the following command (update the path to where your own SurgUI-master folder is located):ß
+- Open terminal and run the following command (update the path to where your own SurgUI-master folder is located):
     ```shell
     conda activate surgui-venv
     cd path/to/SurgUI-master
