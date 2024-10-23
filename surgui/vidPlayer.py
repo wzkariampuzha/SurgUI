@@ -363,16 +363,6 @@ class Window(QWidget):
                                 ),
                                 "a",
                             ) as out:
-                                #What exactly is this writing?
-                                #Error: 
-                                # Saving directory:  ./outputs/vidname_2022_08_05_74253496.mp4
-                                #1 1 | Time: 0:08:42 to 0:08:55
-                                # Traceback (most recent call last):
-                                # File "/Users/wzk/Documents/GitHub/SurgUI/surgui/vidPlayer.py", line 411, in open_video
-                                # ) == int(score):
-                                # ValueError: invalid literal for int() with base 10: '1 | Time: 0:08:42 to 0:08:55\n'
-                                # [1]    87051 abort      surgui
-                                
                                 for i in range(len(self.groupButtonlist[panel_index])):
                                     out.write(
                                         "{} \n".format(
@@ -580,7 +570,7 @@ class Window(QWidget):
             self.scroll[self.panel_index] = QScrollArea()
             self.scroll[self.panel_index].setWidget(self.groupbox[self.panel_index])
             self.scroll[self.panel_index].setWidgetResizable(True)
-            self.scroll[self.panel_index].setFixedWidth(200)
+            self.scroll[self.panel_index].setFixedWidth(300)
             self.scroll[self.panel_index].setFocusPolicy(Qt.StrongFocus)
             self.mainLayout.addWidget(self.scroll[self.panel_index])
 
@@ -688,6 +678,8 @@ class Window(QWidget):
                 self.endingButtonlist[self.panel_index][i].clicked.connect(
                     partial(self.onendbuttonClicked, self.panel_index, i)
                 )
+                self.endingButtonlist[self.panel_index][i].setEnabled(False)  # Disable End button initially
+
 
                 self.ratingButtonslist[self.panel_index].append([])
 
@@ -698,6 +690,9 @@ class Window(QWidget):
                     self.ratingButtonslist[self.panel_index][i][j].setStyleSheet(
                         "background-color: black ; color: white"
                     )
+                for btn in self.ratingButtonslist[self.panel_index][i]:
+                    btn.setEnabled(False)  # Disable Rating buttons initially
+
 
                 # self.yesButtonlist[self.panel_index].append(QRadioButton())
                 # self.yesButtonlist[self.panel_index][i].clicked.connect()
@@ -722,15 +717,15 @@ class Window(QWidget):
                 hbLayout.setContentsMargins(0, 0, 0, 0)
                 container = QWidget()
                 container.setLayout(hbLayout)
-                self.saveEntryBtn[self.panel_index].append(QPushButton("save"))
+                # self.saveEntryBtn[self.panel_index].append(QPushButton("save"))
                 self.clearEntryBtn[self.panel_index].append(QPushButton("clear"))
-                self.saveEntryBtn[self.panel_index][i].setFixedWidth(50)
+                # self.saveEntryBtn[self.panel_index][i].setFixedWidth(50)
                 self.clearEntryBtn[self.panel_index][i].setFixedWidth(50)
-                self.saveEntryBtn[self.panel_index][i].setEnabled(False)
-                self.saveEntryBtn[self.panel_index][i].clicked.connect(
-                    partial(self.onsaveEntryBtnClicked, self.panel_index, i)
-                )
-                self.clearEntryBtn[self.panel_index][i].setEnabled(False)
+                # self.saveEntryBtn[self.panel_index][i].setEnabled(False)
+                # self.saveEntryBtn[self.panel_index][i].clicked.connect(
+                #     partial(self.onsaveEntryBtnClicked, self.panel_index, i)
+                # )
+                self.clearEntryBtn[self.panel_index][i].setEnabled(True)
                 self.clearEntryBtn[self.panel_index][i].clicked.connect(
                     partial(self.onclearEntryBtnClicked, self.panel_index, i)
                 )
@@ -746,7 +741,7 @@ class Window(QWidget):
                     self.endingTimelist[self.panel_index][i],
                 )
                 self.formLayout[self.panel_index].addRow(
-                    self.saveEntryBtn[self.panel_index][i],
+                    # self.saveEntryBtn[self.panel_index][i],
                     self.clearEntryBtn[self.panel_index][i],
                 )
                 # self.formLayout[self.panel_index].addRow(self.startingButtonlist[self.panel_index][i],
@@ -760,7 +755,7 @@ class Window(QWidget):
             self.scroll[self.panel_index] = QScrollArea()
             self.scroll[self.panel_index].setWidget(self.groupbox[self.panel_index])
             self.scroll[self.panel_index].setWidgetResizable(True)
-            self.scroll[self.panel_index].setFixedWidth(300)
+            self.scroll[self.panel_index].setFixedWidth(350)
             self.scroll[self.panel_index].setFocusPolicy(Qt.StrongFocus)
             self.mainLayout.addWidget(self.scroll[self.panel_index])
 
@@ -789,28 +784,17 @@ class Window(QWidget):
                         if len(line.split(" : ")) == 2:
                             score = line.split(" : ")[1]
 
-                            for i in range(
-                                len(self.groupButtonlist[self.panel_index])
-                            ):
-                                if (
-                                    self.tasklist[self.panel_index][i].text()
-                                    == rating_item
-                                ):
-                                    for j in range(
-                                        len(
-                                            self.ratingButtonslist[
-                                                self.panel_index
-                                            ][i]
-                                        )
-                                    ):
-                                        if int(
-                                            self.ratingButtonslist[
-                                                self.panel_index
-                                            ][i][j].text()
-                                        ) == int(score):
-                                            self.ratingButtonslist[
-                                                self.panel_index
-                                            ][i][j].setChecked(True)
+                            for i in range(len(self.groupButtonlist[self.panel_index])):
+                                if self.tasklist[self.panel_index][i].text() == rating_item:
+                                    for j in range(len(self.ratingButtonslist[self.panel_index][i])):
+                                        # Check if the score is a valid number before converting
+                                        if score.strip().isdigit():  # Check if score is numeric
+                                            if int(self.ratingButtonslist[self.panel_index][i][j].text()) == int(score):
+                                                self.ratingButtonslist[self.panel_index][i][j].setChecked(True)
+                                        else:
+                                            # Handle case when score is 'Not rated' or any other non-numeric value
+                                            print(f"Skipping invalid score: {score}")
+
                                     # Update timestamp alongside score
                                     new_lines.append(f"{rating_item} : {score} | {self.startingTimelist[self.panel_index][i].text()} to {self.endingTimelist[self.panel_index][i].text()}")
 
@@ -825,20 +809,22 @@ class Window(QWidget):
                     f.writelines(new_lines)
             else:
                 if self.save_directory:
-                    with open(
-                        "{}/{}_scores.txt".format(
-                            self.save_directory,
-                            self.form_title[self.panel_index].text(),
-                        ),
-                        "a",
-                    ) as out:
+                    with open("{}/{}_scores.txt".format(self.save_directory, self.form_title[self.panel_index].text()), "a") as out:
+
                         for i in range(len(self.groupButtonlist[self.panel_index])):
-                            # Write initial rating with timestamp placeholder
-                            out.write(
-                                "{} : Not rated | Time not set\n".format(
-                                    self.tasklist[self.panel_index][i].text(),
-                                )
-                            )
+                            starting_time = self.startingTimelist[self.panel_index][i].text()
+                            ending_time = self.endingTimelist[self.panel_index][i].text()
+                            score = None
+
+                            # Check which radio button is selected and get the score
+                            for j in range(len(self.ratingButtonslist[self.panel_index][i])):
+                                if self.ratingButtonslist[self.panel_index][i][j].isChecked():
+                                    score = self.ratingButtonslist[self.panel_index][i][j].text()
+
+                            # Only write valid entries (if a rating and timestamps are set)
+                            if starting_time != "0" and ending_time != "0" and score is not None:
+                                out.write("{} : {} | Time: {} to {}\n".format(
+                                    self.tasklist[self.panel_index][i].text(), score, starting_time, ending_time))
 
 
     def position_changed(self):
@@ -891,46 +877,143 @@ class Window(QWidget):
 
     def onstartbuttonClicked(self, panel_index, i):
         value = self.getSliderValue()
-
         self.startingTimelist[panel_index][i].setText(str(value))
         self.startingTimelist[panel_index][i].setStyleSheet("color: white")
-        self.saveEntryBtn[panel_index][i].setEnabled(False)
-        self.clearEntryBtn[panel_index][i].setEnabled(True)
+
+        # Enable End button after Start is clicked
+        self.endingButtonlist[panel_index][i].setEnabled(True)
+
 
     def onendbuttonClicked(self, panel_index, i):
         value = self.getSliderValue()
-
         self.endingTimelist[panel_index][i].setText(str(value))
         self.endingTimelist[panel_index][i].setStyleSheet("color: white")
-        self.saveEntryBtn[panel_index][i].setEnabled(True)
+
+        # Check if the current panel has a rating list and it's valid before enabling
+        if self.ratingButtonslist[panel_index] and len(self.ratingButtonslist[panel_index]) > i:
+            for btn in self.ratingButtonslist[panel_index][i]:
+                btn.setEnabled(True)
+        
+        # Check save conditions after ending time is selected
+        self.check_save_conditions(panel_index, i)
+
+
+    def onRatingSelected(self, panel_index, i):
+        # Trigger save condition check after rating is selected
+        self.check_save_conditions(panel_index, i)
+
+    def check_save_conditions(self, panel_index, i):
+        start_time = self.startingTimelist[panel_index][i].text()
+        end_time = self.endingTimelist[panel_index][i].text()
+
+        # Check if this is a Rating Panel
+        if self.ratingButtonslist[panel_index] and self.ratingButtonslist[panel_index][i]:
+            rating_selected = any(btn.isChecked() for btn in self.ratingButtonslist[panel_index][i])
+
+            # Enable Save button only if start time, end time, and rating are selected
+            if start_time != "0" and end_time != "0" and rating_selected:
+                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                    self.saveEntryBtn[panel_index][i].setEnabled(True)
+            else:
+                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                    self.saveEntryBtn[panel_index][i].setEnabled(False)
+
+            # Always keep the Clear button enabled for rating panels
+            if self.clearEntryBtn[panel_index] and len(self.clearEntryBtn[panel_index]) > i:
+                self.clearEntryBtn[panel_index][i].setEnabled(True)
+
+        else:
+            # This is a Timestamp Panel; enable Save button only if both start and end times are set
+            if start_time != "0" and end_time != "0":
+                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                    self.saveEntryBtn[panel_index][i].setEnabled(True)
+            else:
+                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                    self.saveEntryBtn[panel_index][i].setEnabled(False)
+
+            # Keep Clear button always enabled
+            if self.clearEntryBtn[panel_index] and len(self.clearEntryBtn[panel_index]) > i:
+                self.clearEntryBtn[panel_index][i].setEnabled(True)
+
+
+    def check_timestamp_save_conditions(self, panel_index, i):
+        start_time = self.startingTimelist[panel_index][i].text()
+        end_time = self.endingTimelist[panel_index][i].text()
+
+        # Enable Save and Clear buttons only if both start and end times are set
+        if start_time != "0" and end_time != "0":
+            self.saveEntryBtn[panel_index][i].setEnabled(True)
+            self.clearEntryBtn[panel_index][i].setEnabled(True)
+        else:
+            self.saveEntryBtn[panel_index][i].setEnabled(False)
+            self.clearEntryBtn[panel_index][i].setEnabled(False)
+
+    def check_rating_save_conditions(self, panel_index, i):
+        start_time = self.startingTimelist[panel_index][i].text()
+        end_time = self.endingTimelist[panel_index][i].text()
+        rating_selected = any(btn.isChecked() for btn in self.ratingButtonslist[panel_index][i])
+
+        # Enable Save button only if all conditions (start, end, rating) are met
+        if start_time != "0" and end_time != "0" and rating_selected:
+            self.saveEntryBtn[panel_index][i].setEnabled(True)
+        else:
+            self.saveEntryBtn[panel_index][i].setEnabled(False)
+
+        # Always enable the Clear button for rating panels
         self.clearEntryBtn[panel_index][i].setEnabled(True)
+
 
     def onsaveEntryBtnClicked(self, panel_index, i):
         self.saveEntryBtn[panel_index][i].setEnabled(False)
-        form_title = self.form_title[panel_index].text()
-        task_name = self.tasklist[panel_index][i].text()
-        starting_time = self.startingTimelist[panel_index][i].text()
-        ending_time = self.endingTimelist[panel_index][i].text()
-        with open("{}/{}.txt".format(self.save_directory, form_title), "a") as f:
-            f.write("{} : ({},{})\n".format(task_name, starting_time, ending_time))
-        
-    def onsaveEntryBtnClicked_1(self, panel_index, i):
-        self.saveEntryBtn[panel_index][i].setEnabled(False)
-        form_title = self.form_title[panel_index].text()
-        task_name = self.tasklist[panel_index][i].text()
-        starting_time = self.startingTimelist[panel_index][i].text()
-        ending_time = self.endingTimelist[panel_index][i].text()
-        with open("{}/{}_scores.txt".format(self.save_directory, form_title), "a") as f:
-            f.write("{} : ({},{})\n".format(task_name, starting_time, ending_time))
 
-        # self.startingTimelist[panel_index][i].setText('0')
-        # self.endingTimelist[panel_index][i].setText('0')
+        form_title = self.form_title[panel_index].text()
+        task_name = self.tasklist[panel_index][i].text()
+        starting_time = self.startingTimelist[panel_index][i].text()
+        ending_time = self.endingTimelist[panel_index][i].text()
+
+        # Save the entry to a file
+        with open("{}/{}.txt".format(self.save_directory, form_title), "a") as f:
+            f.write("{} : Start: {}, End: {}\n".format(task_name, starting_time, ending_time))
+
+        # Disable the buttons after saving
+        self.clearEntryBtn[panel_index][i].setEnabled(True)
+
 
     def onclearEntryBtnClicked(self, panel_index, i):
-        self.saveEntryBtn[panel_index][i].setEnabled(False)
-        self.clearEntryBtn[panel_index][i].setEnabled(False)
+        # Reset the start and end times
         self.startingTimelist[panel_index][i].setText("0")
         self.endingTimelist[panel_index][i].setText("0")
+
+        # If this is a rating panel, clear the selected rating
+        if self.ratingButtonslist[panel_index]:
+            # Temporarily disable the exclusivity of the button group
+            self.groupButtonlist[panel_index][i].setExclusive(False)
+            
+
+            # Uncheck all radio buttons in the rating panel
+            for btn in self.ratingButtonslist[panel_index][i]:
+                btn.setChecked(False)
+
+            # Disable the radio buttons (they will be enabled again after selecting times)
+            for btn in self.ratingButtonslist[panel_index][i]:
+                btn.setEnabled(False)
+
+            # Re-enable exclusivity after clearing
+            self.groupButtonlist[panel_index][i].setExclusive(True)
+
+        # Keep the Clear button enabled after clearing
+        if self.clearEntryBtn[panel_index] and len(self.clearEntryBtn[panel_index]) > i:
+            self.clearEntryBtn[panel_index][i].setEnabled(True)
+
+        # Disable the Save button after clearing
+        if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+            self.saveEntryBtn[panel_index][i].setEnabled(False)
+
+        # Disable the End button and re-enable the Start button
+        self.startingButtonlist[panel_index][i].setEnabled(True)
+        self.endingButtonlist[panel_index][i].setEnabled(False)
+
+
 
     def screenshotCall(self):
         # pause video if playing
@@ -967,9 +1050,6 @@ class Window(QWidget):
         # No need to call this function if nothing is played
         if not self.mediaPlayer.is_playing():
             self.timer.stop()
-            # After the video finished, the play button stills shows "Pause",
-            # which is not the desired behavior of a media player.
-            # This fixes that "bug".
             if not self.is_paused:
                 self.stop()
 
@@ -1041,61 +1121,58 @@ class Window(QWidget):
                     ]
                 )
 
+     
     def save_rating_entry(self, panel_index, i):
-        if self.vidname:
-            form_title = self.form_title[panel_index].text()
-            rating_item = self.tasklist[panel_index][i].text()
-            starting_time = self.startingTimelist[panel_index][i].text()
-            ending_time = self.endingTimelist[panel_index][i].text()
-            score = None
+        form_title = self.form_title[panel_index].text()
+        task_name = self.tasklist[panel_index][i].text()
+        starting_time = self.startingTimelist[panel_index][i].text()
+        ending_time = self.endingTimelist[panel_index][i].text()
 
-            # Check which radio button is selected and get the score
-            for j in range(len(self.ratingButtonslist[panel_index][i])):
-                if self.ratingButtonslist[panel_index][i][j].isChecked():
-                    score = self.ratingButtonslist[panel_index][i][j].text()
+        # Get the selected rating
+        score = None
+        for j in range(len(self.ratingButtonslist[panel_index][i])):
+            if self.ratingButtonslist[panel_index][i][j].isChecked():
+                score = self.ratingButtonslist[panel_index][i][j].text()
 
-            # Construct the new entry line to be added to the file
-            new_entry = "{} : {} | Time: {} to {}\n".format(rating_item, score, starting_time, ending_time)
+        # Save the entry to a file
+        with open("{}/{}_scores.txt".format(self.save_directory, form_title), "a") as f:
+            f.write("{} : Rating: {}, Start: {}, End: {}\n".format(task_name, score, starting_time, ending_time))
 
-            # Open the score file to append the new entry
-            with open("{}/{}_scores.txt".format(self.save_directory, form_title), "a") as f:
-                f.write(new_entry)
-
-            # Optional: Print a confirmation or log the update
-            print("Added new score and timestamps for", rating_item)
+        # Check if saveEntryBtn exists before trying to disable it
+        if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+            self.saveEntryBtn[panel_index][i].setEnabled(False)
 
 
     def clearPanels(self):
         value = 0
 
+        # Iterate through all panels
         if self.num_panels != 0:
-
             for panel_index in range(1, self.num_panels + 1):
+                # Remove the scroll area (which contains the panel) from the layout
+                if self.scroll[panel_index]:
+                    self.mainLayout.removeWidget(self.scroll[panel_index])
+                    self.scroll[panel_index].deleteLater()  # Delete the widget and its children
 
-                if self.startingTimelist[panel_index]:
-                    for i in range(len(self.startingTimelist[panel_index])):
-                        self.startingTimelist[panel_index][i].setText(str(value))
-                        self.startingTimelist[panel_index][i].setStyleSheet(
-                            "color: white"
-                        )
-                        self.endingTimelist[panel_index][i].setText(str(value))
-                        self.endingTimelist[panel_index][i].setStyleSheet(
-                            "color: white"
-                        )
-                        self.saveEntryBtn[panel_index][i].setEnabled(False)
-                        self.clearEntryBtn[panel_index][i].setEnabled(False)
-                elif self.groupButtonlist[panel_index]:
-                    for i in range(len(self.groupButtonlist[panel_index])):
-                        self.groupButtonlist[panel_index][i].setExclusive(False)
-                        for j in range(len(self.ratingButtonslist[panel_index][i])):
-                            if self.ratingButtonslist[panel_index][i][j]:
-                                self.ratingButtonslist[panel_index][i][j].setChecked(
-                                    False
-                                )
-                        # self.yesButtonlist[panel_index][i].setChecked(False)
-                        # self.noButtonlist[panel_index][i].setChecked(False)
-                        self.groupButtonlist[panel_index][i].setExclusive(True)
-                        # unchdeck all
+                # Reset internal panel tracking lists
+                self.groupbox[panel_index] = None
+                self.formLayout[panel_index] = None
+                self.form_title[panel_index] = None
+                self.panelRemoveBtn[panel_index] = None
+                self.scroll[panel_index] = None
+                self.tasklist[panel_index] = None
+                self.startingButtonlist[panel_index] = None
+                self.startingTimelist[panel_index] = None
+                self.endingButtonlist[panel_index] = None
+                self.endingTimelist[panel_index] = None
+                self.saveEntryBtn[panel_index] = None
+                self.clearEntryBtn[panel_index] = None
+                self.ratingButtonslist[panel_index] = None
+                self.groupButtonlist[panel_index] = None
+
+            # Reset the panel counter
+            self.num_panels = 0
+
 
     def close(self):
         sys.exit(app.exec_())
