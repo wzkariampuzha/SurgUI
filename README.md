@@ -48,16 +48,26 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 ## Usage
 - Open VLC media player
 
-- Open terminal and run the following command:
+- Open terminal and run the following command (update the path to where your own SurgUI-master folder is located):
     ```shell
     conda activate surgui-venv
-    surgui
+    cd path/to/SurgUI-master
+    python surgui
     ```
 
-#### Segment labeling:
-For annotating the start and end of segments, click File then "Add Rating Panel" then select the `rating-labels.txt` file containing the list of segments. In the software, create a timestamping panel by opening the text file. For each video that is playing, a folder with the same name is created in “outputs” directory. By pressing the save button, for each segment, a line will be added to a file in the output folder.
+### Segment Rating:
+For annotating the start and end of segments, first click File then "Add Rating Panel" then select the `RatingsPanel-Anatomy.txt` file. Then click File, "Add Timestamp Panel", select `TimeStampPanel-ObstructedViews.txt`. Then click File and find and open a video. For each video that is playing, a folder with the same name is created in “outputs” directory.
 
-Add the video file to the software by clicking the “Add Video” button. The video will start playing in the VLC media player.
+#### Rating System: 
+We have a rating system of  
+- 1: No significant secretions 
+- 2: Secretions that don't impeded visualization 
+- 3: Secretions that impede visualization, but don't completely block your view 
+- 4: Secretions that completely block your view, making it difficult to get a good assessment
+- 5: Nothing, do not use this rating
+
+#### Obstructed Views:
+- Use this time stamp panel to mark any time points where the view is so obscured *for at least 3 seconds* that you cannot ascertain which anatomical structure is being visualized.
 
 #### Saved Annotations
 The saved images and the .json files from labelme annotations are stored in `images` folder for each video.
