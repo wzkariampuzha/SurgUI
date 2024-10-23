@@ -14,8 +14,7 @@
 1.13 Velopharynx 14th View
 1.14 Velopharynx 15th View
 1.15 Velopharynx 16th View
- 
-2.00 Oropharynx Initial
+2.00 Oropharynx Initial View
 2.01 Oropharynx 2nd View 
 2.02 Oropharynx 3rd View
 2.03 Oropharynx 4th View
@@ -31,13 +30,7 @@
 2.13 Oropharynx 14th View
 2.14 Oropharynx 15th View
 2.15 Oropharynx 16th View
-2.16 Oropharynx 17th View
-2.17 Oropharynx 18th View
-2.18 Oropharynx 19th View
-2.19 Oropharynx 20th View
-2.20 Oropharynx 21th View
- 
-3.0 Tongue/Epiglottis Initial
+3.0 Tongue/Epiglottis Initial View
 3.1 Tongue/Epiglottis 2nd View 
 3.2 Tongue/Epiglottis 3rd View
 3.3 Tongue/Epiglottis 4th View
