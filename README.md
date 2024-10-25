@@ -59,6 +59,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 For annotating the start and end of segments, first click File then "Add Rating Panel" then select the `RatingsPanel-Anatomy.txt` file. Then click File, "Add Timestamp Panel", select `TimeStampPanel-ObstructedViews.txt`. Then click File and find and open a video. For each video that is playing, a folder with the same name is created in “outputs” directory.
 
 #### Rating System: 
+Every time you see a new segment of anatomy, mark the start time, play through until you see a new segment, mark the start time 
 We have a rating system of  
 - 1: No significant secretions 
 - 2: Secretions that don't impeded visualization 
@@ -66,8 +67,11 @@ We have a rating system of
 - 4: Secretions that completely block your view, making it difficult to get a good assessment
 - 5: Nothing, do not use this rating
 
+Every other segment, take a screenshot and mark out secretions that 
+
 #### Obstructed Views:
-- Use this time stamp panel to mark any time points where the view is so obscured *for at least 3 seconds* that you cannot ascertain which anatomical structure is being visualized.
+- Use this time stamp panel to mark any time points where the view is so obscured that you cannot ascertain which anatomical structure is being visualized.
+- The anatomical segment i
 
 #### Saved Annotations
 The saved images and the .json files from labelme annotations are stored in `images` folder for each video.
