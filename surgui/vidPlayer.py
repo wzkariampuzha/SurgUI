@@ -584,9 +584,7 @@ class Window(QWidget):
 
             with open(filename) as f:
                 lines = f.read().splitlines()
-                # with open('{}/{}_scores.txt'.format(self.save_directory, title), 'w') as out:
-                #     for line in lines:
-                #         out.write(line + '\n')
+                lines = [line for line in lines if len(line.strip())>0]  # Remove empty lines
             print("Opened rating panel:", title)
 
             self.num_panels += 1
