@@ -473,7 +473,7 @@ class Window(QWidget):
                 self.clearEntryBtn[self.panel_index][i].setFixedWidth(50)
                 self.saveEntryBtn[self.panel_index][i].setEnabled(False)
                 self.saveEntryBtn[self.panel_index][i].clicked.connect(
-                    partial(self.save, self.panel_index, i)
+                    partial(self.save_entry, self.panel_index, i)
                 )
                 self.clearEntryBtn[self.panel_index][i].setEnabled(False)
                 self.clearEntryBtn[self.panel_index][i].clicked.connect(
