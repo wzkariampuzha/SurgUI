@@ -973,7 +973,7 @@ class Window(QWidget):
 
         # Save the entry to a file
         with open("{}/{}.txt".format(self.save_directory, form_title), "a") as f:
-            f.write("{} : Start: {}, End: {}\n".format(task_name, starting_time, ending_time))
+            f.write("{} : ({} , {})\n".format(task_name, starting_time, ending_time))
 
         # Disable the buttons after saving
         self.clearEntryBtn[panel_index][i].setEnabled(True)
@@ -1136,7 +1136,7 @@ class Window(QWidget):
 
         # Save the entry to a file
         with open("{}/{}_scores.txt".format(self.save_directory, form_title), "a") as f:
-            f.write("{} : Rating: {}, Start: {}, End: {}\n".format(task_name, score, starting_time, ending_time))
+            f.write("{} : {} | Time: {} to {}\n".format(task_name, score, starting_time, ending_time))
 
         # Check if saveEntryBtn exists before trying to disable it
         if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
