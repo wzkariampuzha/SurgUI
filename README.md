@@ -16,9 +16,6 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 - pixel-level annotation of the images by opening in [labelme](https://github.com/wkentaro/labelme/) software
 
 ## Installation for the DISE project (verified on Mac)
-
-- Download the SurgUI-master zipped repository [here](https://github.com/wzkariampuzha/SurgUI/archive/refs/heads/master.zip) 
-- Unzip it
 - Download \& install Anaconda
   - [Anaconda](https://www.anaconda.com/download/success)
   - Open the Anaconda-Navigator app
@@ -26,6 +23,14 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 - Download \& install VLC media player
   - [Mac install (Universal Binary)](https://get.videolan.org/vlc/3.0.21/macosx/vlc-3.0.21-universal.dmg) 
   - [Windows install](https://apps.microsoft.com/detail/xpdm1zw6815mqm?ocid=webpdpshare)
+
+- Recommended:
+  - Download [GitHub Desktop](https://desktop.github.com/download/)
+  - Login to GitHub Desktop
+  - In this repo, click the green code button, then click open with GitHub Desktop
+- Otherwise:
+  - Download the SurgUI-master zipped repository [here](https://github.com/wzkariampuzha/SurgUI/archive/refs/heads/master.zip) 
+  - Unzip it
 
  - Open the terminal app (Mac) or Windows powershell:
     - Now you need to navigate to the folder where you copied the SurgUI-master folder 
@@ -35,6 +40,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
     - ```shell
         cd path/to/SurgUI-master
         ```
+   - e.g. mine is under `cd /Users/wzk/Documents/GitHub/SurgUI`
     Then run these commands:
      - ```shell
         conda env create --file environment.yml
