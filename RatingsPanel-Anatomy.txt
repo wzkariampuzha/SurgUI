@@ -1,3 +1,12 @@
+0.00 Nasal Cavity Initial View
+0.01 Nasal Cavity 2nd View
+0.02 Nasal Cavity 3rd View
+0.03 Nasal Cavity 4th View
+0.04 Nasal Cavity 5th View
+0.05 Nasal Cavity 6th View
+0.06 Nasal Cavity 7th View
+0.07 Nasal Cavity 8th View
+
 1.00 Velopharynx Initial View
 1.01 Velopharynx 2nd View 
 1.02 Velopharynx 3rd View
