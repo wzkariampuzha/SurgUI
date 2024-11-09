@@ -15,7 +15,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 - extracting and saving important frames such as critical views
 - pixel-level annotation of the images by opening in [labelme](https://github.com/wkentaro/labelme/) software
 
-## Installation for the DISE project (verified on Mac)
+## Installation for the DISE project
 - Download \& install Anaconda
   - [Anaconda](https://www.anaconda.com/download/success)
   - Open the Anaconda-Navigator app
@@ -23,6 +23,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 - Download \& install VLC media player
   - [Mac install (Universal Binary)](https://get.videolan.org/vlc/3.0.21/macosx/vlc-3.0.21-universal.dmg) 
   - [Windows install](https://apps.microsoft.com/detail/xpdm1zw6815mqm?ocid=webpdpshare)
+  - For PC users, make sure that you are using the version of VLC that is appropriate for your machine (check if it is 32-bit or 64-bit by going to Windows Settings > System > About > System type)
 
 - Recommended:
   - Download [GitHub Desktop](https://desktop.github.com/download/)
@@ -49,17 +50,15 @@ A graphical video annotation tool, originally developed for labeling surgical vi
 
 ## Videos
 - Download videos from `OneDrive/George Williams/Research/DISE/Videos` into a folder called `videos` in your SurgUI GitHub folder
-- Do NOT rename the videos or edit them in any way
+- Do *NOT* rename the videos or edit them in any way
 - Message @mataschen on Teams if you need access to the videos
 - Do not upload the videos to GitHub or any other public site
 
 ## Usage
 - Open VLC media player
-- Open terminal and run the following command:
-    ```shell
-    conda activate surgui-venv
-    python surgui
-    ```
+- Open terminal (Mac) or Anaconda Prompt (Windows) and run the following command:  
+  - `conda activate surgui-venv`
+  - `python surgui` OR `surgui`
 - SurgUI should open within 15-30 seconds
 
 ### Segment Rating:
@@ -73,8 +72,10 @@ Every time you see a new anatomical segment, mark the start time, play through *
 - 4: Secretions that completely block your view, making it difficult to get a good assessment
 - 5: Nothing, do not use this rating
 
-Every anatomical segment, take a screenshot at some point and then use the labelme software to draw out secretions that obscure the lens. Secretions are labeled as "secretionstissue" if on the soft tissue or "secretionslens" if on the lens of the scope. You should draw polygons around these secretions. 
-
+### Secretions Annotation:
+- Every anatomical segment, take a screenshot at some point and then use the labelme software to draw a polygon around secretions. 
+- Secretions are labeled as `secretionstissue` if on the soft tissue or `secretionslens` if on the lens of the scope. You should draw polygons around these secretions.
+- Do *NOT* use any other label other those listed above.
 
 #### Obstructed Views:
 - Use this time stamp panel to mark any time points where the view is so obscured that you cannot ascertain which anatomical structure is being visualized.
@@ -85,4 +86,4 @@ Every anatomical segment, take a screenshot at some point and then use the label
 #### Saved Annotations
 - The saved images and the .json files from labelme annotations are stored in `images` folder for each video.
 - When complete, go to File > Save
-- **Check** your annotation, especially rating, files for completeness
+- **Check** your annotations, especially rating, files for completeness! Sometimes they don't save!
