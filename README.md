@@ -32,36 +32,35 @@ A graphical video annotation tool, originally developed for labeling surgical vi
   - Download the SurgUI-master zipped repository [here](https://github.com/wzkariampuzha/SurgUI/archive/refs/heads/master.zip) 
   - Unzip it
 
- - Open the terminal app (Mac) or Windows powershell:
+ - Open the terminal app (Mac) or Anaconda Prompt (Windows):
     - Now you need to navigate to the folder where you copied the SurgUI-master folder 
     - Eg. If you copied the SurgUI-master folder	 to `C:\Users\SurgUI-master` then in the command line write `cd C:\Users\SurgUI-master`. To copy the pathname of your SurgUI folder on macOS, see [here](https://support.apple.com/en-gb/guide/mac-help/mchlp1774/mac#:~:text=Show%20the%20path%20to%20a,show%20the%20path%20bar%20momentarily.).  
     - See this example: 
     - <img src="change-working-directory-example.png">
-    - ```shell
-        cd path/to/SurgUI-master
-        ```
+    - `cd path/to/SurgUI-master`
    - e.g. mine is under `cd /Users/wzk/Documents/GitHub/SurgUI`
+    
     Then run these commands:
-     - ```shell
-        conda env create --file windows-env.yml
-        conda activate surgui-venv
-        ```
-    Install the software:
-    - ```shell
-        python setup.py install
-      ```
+      1. Create environment
+         - Windows: `conda env create --file windows-env.yml`
+         - Mac: `conda env create --file mac-env.yml` 
+      2. Activate environemt: `conda activate surgui-venv`
+      3. Install the software: `python setup.py install`
 
 ## Videos
-Download videos from
+- Download videos from `OneDrive/George Williams/Research/DISE/Videos` into a folder called `videos` in your SurgUI GitHub folder
+- Do NOT rename the videos or edit them in any way
+- Message @mataschen on Teams if you need access to the videos
+- Do not upload the videos to GitHub or any other public site
 
 ## Usage
 - Open VLC media player
-
-- Open terminal and run the following command (update the path to where your own SurgUI-master folder is located):
+- Open terminal and run the following command:
     ```shell
     conda activate surgui-venv
     python surgui
     ```
+- SurgUI should open within 15-30 seconds
 
 ### Segment Rating:
 For annotating the start and end of segments, first click File then "Add Rating Panel" then select the `RatingsPanel-Anatomy.txt` file. Then click File, "Add Timestamp Panel", select `TimeStampPanel-ObstructedViews.txt`. Then click File and find and open a video. For each video that is playing, a folder with the same name is created in “outputs” directory.
@@ -81,8 +80,9 @@ Every anatomical segment, take a screenshot at some point and then use the label
 - Use this time stamp panel to mark any time points where the view is so obscured that you cannot ascertain which anatomical structure is being visualized.
 - A few frames or less than a second of obstruction does not need to be marked, however if there is a significant period of time without visualization, you should mark it.
 - Use this even when you know that you are in an anatomical segment (because the camera has not moved), but you could not tell which segment you are in solely from the frame.
-- - Example: you are in the oropharynx and then view gets obstructed for 10 seconds before emerging in the tongue level. You should mark the end of the oropharynx level as when you emerged into seeing the tongue, but the entire 10 seconds of obstructed view should be flagged as obstructed view.
+  - Example: you are in the oropharynx and then view gets obstructed for 10 seconds before emerging in the tongue level. You should mark the end of the oropharynx level as when you emerged into seeing the tongue, but the entire 10 seconds of obstructed view should be flagged as obstructed view.
 
 #### Saved Annotations
 - The saved images and the .json files from labelme annotations are stored in `images` folder for each video.
-- **Check** your annotation files for completeness
+- When complete, go to File > Save
+- **Check** your annotation, especially rating, files for completeness
