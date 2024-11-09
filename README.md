@@ -51,6 +51,9 @@ A graphical video annotation tool, originally developed for labeling surgical vi
         python setup.py install
       ```
 
+## Videos
+Download videos from
+
 ## Usage
 - Open VLC media player
 
@@ -82,4 +85,5 @@ Every anatomical segment, take a screenshot at some point and then use the label
 - - Example: you are in the oropharynx and then view gets obstructed for 10 seconds before emerging in the tongue level. You should mark the end of the oropharynx level as when you emerged into seeing the tongue, but the entire 10 seconds of obstructed view should be flagged as obstructed view.
 
 #### Saved Annotations
-The saved images and the .json files from labelme annotations are stored in `images` folder for each video.
+- The saved images and the .json files from labelme annotations are stored in `images` folder for each video.
+- **Check** your annotation files for completeness
