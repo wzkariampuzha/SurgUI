@@ -43,7 +43,7 @@ A graphical video annotation tool, originally developed for labeling surgical vi
    - e.g. mine is under `cd /Users/wzk/Documents/GitHub/SurgUI`
     Then run these commands:
      - ```shell
-        conda env create --file environment.yml
+        conda env create --file windows-env.yml
         conda activate surgui-venv
         ```
     Install the software:

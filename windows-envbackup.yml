@@ -1,0 +1,11 @@
+name: SurgUI-venv
+channels:
+  - defaults
+dependencies:
+  - pip=24.0
+  - python=3.10.14
+  - pip:
+      - labelme
+      - opencv-python
+      - pyqt5
+      - python-vlc
