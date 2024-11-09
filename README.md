@@ -60,7 +60,6 @@ Download videos from
 - Open terminal and run the following command (update the path to where your own SurgUI-master folder is located):
     ```shell
     conda activate surgui-venv
-    cd path/to/SurgUI-master
     python surgui
     ```
 
