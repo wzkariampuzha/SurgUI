@@ -78,7 +78,7 @@ Every time you see a new anatomical segment, mark the start time, play through *
 - Do *NOT* use any other label other those listed above.
 
 #### Obstructed Views:
-- Use this time stamp panel to mark any time points where the view is so obscured that you cannot ascertain which anatomical structure is being visualized.
+- Use this time stamp panel to mark any time points where the view is so obscured that you cannot ascertain which anatomical structure is being visualized (e.g. cough).
 - A few frames or less than a second of obstruction does not need to be marked, however if there is a significant period of time without visualization, you should mark it.
 - Use this even when you know that you are in an anatomical segment (because the camera has not moved), but you could not tell which segment you are in solely from the frame.
   - Example: you are in the oropharynx and then view gets obstructed for 10 seconds before emerging in the tongue level. You should mark the end of the oropharynx level as when you emerged into seeing the tongue, but the entire 10 seconds of obstructed view should be flagged as obstructed view.
