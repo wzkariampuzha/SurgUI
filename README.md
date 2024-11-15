@@ -68,7 +68,7 @@ For annotating the start and end of segments, first click File then "Add Rating 
 Every time you see a new anatomical segment, mark the start time, play through *until you can identify that you are no longer in the same anatomical segment*, mark the end time, then click a rating:
 - 1: No significant secretions 
 - 2: Secretions that don't impeded visualization 
-- 3: Secretions that impede visualization, but don't completely block your view 
+- 3: Secretions that impede visualization of the patency of an airway, but don't completely block your view
 - 4: Secretions that completely block your view, making it difficult to get a good assessment
 - 5: Nothing, do not use this rating
 
