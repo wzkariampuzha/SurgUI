@@ -497,9 +497,6 @@ class Window(QWidget):
             self.form_title[self.panel_index] = QLabel(title)
             self.form_title[self.panel_index].setStyleSheet("color: white")
             self.form_title[self.panel_index].setAlignment(Qt.AlignCenter)
-            self.form_title[self.panel_index].setFont(
-                QFont("Times", 12, weight=QFont.Bold)
-            )
             self.panelRemoveBtn[self.panel_index] = QPushButton("Exit")
             self.panelRemoveBtn[self.panel_index].clicked.connect(
                 partial(self.onpanelRemoveBtnClicked, self.panel_index)
@@ -515,9 +512,6 @@ class Window(QWidget):
                 self.tasklist[self.panel_index].append(QLabel(line[0]))
                 self.tasklist[self.panel_index][i].setStyleSheet(
                     "background-color: black ; color: white"
-                )
-                self.tasklist[self.panel_index][i].setFont(
-                    QFont("Times", 10, weight=QFont.Bold)
                 )
                 self.tasklist[self.panel_index][i].setWordWrap(True)
                 self.startingButtonlist[self.panel_index].append(QPushButton("starts"))
@@ -618,9 +612,6 @@ class Window(QWidget):
             self.form_title[self.panel_index] = QLabel(title)
             self.form_title[self.panel_index].setStyleSheet("color: white")
             self.form_title[self.panel_index].setAlignment(Qt.AlignCenter)
-            self.form_title[self.panel_index].setFont(
-                QFont("Times", 12, weight=QFont.Bold)
-            )
                 
             self.panelRemoveBtn[self.panel_index] = QPushButton("Exit")
             self.panelRemoveBtn[self.panel_index].clicked.connect(
@@ -655,9 +646,6 @@ class Window(QWidget):
                 self.tasklist[self.panel_index].append(QLabel(task))
                 self.tasklist[self.panel_index][i].setStyleSheet(
                     "background-color: black ; color: white"
-                )
-                self.tasklist[self.panel_index][i].setFont(
-                    QFont("Times", 10, weight=QFont.Bold)
                 )
 
                 self.tasklist[self.panel_index][i].setWordWrap(True)
@@ -1066,18 +1054,6 @@ class Window(QWidget):
         elif i == 3:
             self.mediaPlayer.set_rate(3)
 
-    def save(self):
-        value = 0
-
-        if self.num_panels != 0:
-            for panel_index in range(1, self.num_panels + 1):
-                if self.startingButtonlist[panel_index]:
-                    for i in range(len(self.startingButtonlist[panel_index])):
-                        if self.saveEntryBtn[panel_index][i].isEnabled():
-                            # if self.startingTimelist[panel_index][i].text() != str(value) and self.endingTimelist[panel_index][
-                            #   i].text() != str(value):
-                            self.onsaveEntryBtnClicked(panel_index, i)
-
     def annotate(self):
         if self.image_save_directory:
             for json_file in os.listdir(self.image_save_directory):
@@ -1088,7 +1064,7 @@ class Window(QWidget):
                         data = json.load(annotation_file)
                         for shape in data["shapes"]:
                             if shape["label"]:
-                                if not shape["label"] in self.segmentation_labels:
+                                if shape["label"] not in self.segmentation_labels:
                                     self.segmentation_labels.add(shape["label"])
 
         if self.image:
@@ -1104,7 +1080,7 @@ class Window(QWidget):
                     ]
                 )
             else:
-                labels = ",".join(l for l in self.segmentation_labels)
+                labels = ",".join(label for label in self.segmentation_labels)
                 print(labels)
                 subprocess.Popen(
                     [
@@ -1142,7 +1118,7 @@ class Window(QWidget):
 
 
     def clearPanels(self):
-        value = 0
+        #value = 0
 
         # Iterate through all panels
         if self.num_panels != 0:
