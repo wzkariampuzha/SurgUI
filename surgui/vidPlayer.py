@@ -8,39 +8,28 @@ from PyQt5.QtWidgets import (
     QLabel,
     QSlider,
     QStyle,
-    QFrame,
     QSizePolicy,
     QFileDialog,
-    QLineEdit,
     QFormLayout,
     QGroupBox,
     QScrollArea,
-    QMainWindow,
     QComboBox,
+    QMenuBar, 
+    QRadioButton
 )
 import sys
 import os
 import platform
 import cv2
 import vlc
-from PyQt5.QtMultimedia import (
-    QMediaContent,
-    QMediaPlayer,
-    QVideoFrame,
-    QAbstractVideoSurface,
-    QAbstractVideoBuffer,
-    QVideoSurfaceFormat,
-)
 from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtGui import QIcon, QPalette, QImage, QPainter, QFont
-from PyQt5.QtCore import Qt, QUrl, pyqtSignal, QPoint, QRect, QObject
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QIcon, QPalette, QFont
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import 
 from functools import partial
 import subprocess
 import json
-import time
 
 
 class Slider(QSlider):
@@ -843,7 +832,6 @@ class Window(QWidget):
 
         # self.slider.setValue(position)
         self.timer.stop()
-        pos = self.slider.value()
 
         self.mediaPlayer.set_position(
             position / 100000
@@ -1088,7 +1076,7 @@ class Window(QWidget):
                         data = json.load(annotation_file)
                         for shape in data["shapes"]:
                             if shape["label"]:
-                                if not shape["label"] in self.segmentation_labels:
+                                if shape["label"] not in self.segmentation_labels:
                                     self.segmentation_labels.add(shape["label"])
 
         if self.image:
@@ -1142,7 +1130,7 @@ class Window(QWidget):
 
 
     def clearPanels(self):
-        value = 0
+        #value = 0
 
         # Iterate through all panels
         if self.num_panels != 0:
