@@ -1,35 +1,35 @@
+import json
+import os
+import platform
+import subprocess
+import sys
+from functools import partial
+import cv2
+import vlc
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QFont, QIcon, QPalette
+from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import (
-    QApplication,
-    QWidget,
     QAction,
-    QPushButton,
-    QHBoxLayout,
-    QVBoxLayout,
-    QLabel,
-    QSlider,
-    QStyle,
-    QSizePolicy,
+    QApplication,
+    QComboBox,
     QFileDialog,
     QFormLayout,
     QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QMenuBar,
+    QPushButton,
+    QRadioButton,
     QScrollArea,
-    QComboBox,
-    QMenuBar, 
-    QRadioButton
+    QSizePolicy,
+    QSlider,
+    QStyle,
+    QVBoxLayout,
+    QWidget,
+    QButtonGroup,
 )
-import sys
-import os
-import platform
-import cv2
-import vlc
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtGui import QIcon, QPalette, QFont
-from PyQt5.QtCore import Qt, QTimer
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import 
-from functools import partial
-import subprocess
-import json
 
 
 class Slider(QSlider):
@@ -94,7 +94,6 @@ class Window(QWidget):
         else:  # Linux and Windows
             self.videowidget = QVideoWidget()
             self.mediaPlayer.set_xwindow(int(self.videowidget.winId()))
-
 
         # elif platform.system() == "Windows":
         #     self.videowidget = QtWidgets.QFrame()
@@ -269,16 +268,13 @@ class Window(QWidget):
             self.set_position(p)
 
         elif event.key() == Qt.Key_Left:
-
             p = self.slider.value()
             p = p - int(500000000 / self.media.get_duration())
             self.set_position(p)
 
         elif event.key() == Qt.Key_F5:
-
             self.close()
         else:
-
             super().keyPressEvent(event)
 
     def open_video(self):
@@ -308,7 +304,6 @@ class Window(QWidget):
                 self.mediaPlayer.set_nsobject(int(self.videowidget.winId()))
             else:
                 print("Unsupported platform")
-
 
             self.cap = cv2.VideoCapture(filename)
             self.play_video()
@@ -444,7 +439,6 @@ class Window(QWidget):
             print("Saving directory: ", self.parrentDirectory + "/" + self.vidname)
 
     def display_time(self):
-
         time = self.getSliderValue()
         self.l.setText("{}".format(str(time)))
 
@@ -573,7 +567,11 @@ class Window(QWidget):
 
             with open(filename) as f:
                 # Filter out empty lines in rating panel text files.
-                lines = [line.strip() for line in f.read().splitlines() if len(line.strip())>0]
+                lines = [
+                    line.strip()
+                    for line in f.read().splitlines()
+                    if len(line.strip()) > 0
+                ]
             print("Opened rating panel:", title)
 
             self.num_panels += 1
@@ -583,7 +581,7 @@ class Window(QWidget):
             self.tasklist[self.panel_index] = []
 
             self.yesButtonlist[self.panel_index] = []
-            self.noButtonlist[self.panel_index] = []    
+            self.noButtonlist[self.panel_index] = []
             self.ratingButtonslist[self.panel_index] = []
             self.startingButtonlist[self.panel_index] = []
             self.startingTimelist[self.panel_index] = []
@@ -610,7 +608,7 @@ class Window(QWidget):
             self.form_title[self.panel_index].setFont(
                 QFont("Times", 12, weight=QFont.Bold)
             )
-                
+
             self.panelRemoveBtn[self.panel_index] = QPushButton("Exit")
             self.panelRemoveBtn[self.panel_index].clicked.connect(
                 partial(self.onpanelRemoveBtnClicked, self.panel_index)
@@ -639,7 +637,11 @@ class Window(QWidget):
                     try:
                         num_scores = int(parts[1]) + 1
                     except ValueError:
-                        print("Warning: Invalid number of scores provided in line", i+1, "using default value of 5.")
+                        print(
+                            "Warning: Invalid number of scores provided in line",
+                            i + 1,
+                            "using default value of 5.",
+                        )
 
                 self.tasklist[self.panel_index].append(QLabel(task))
                 self.tasklist[self.panel_index][i].setStyleSheet(
@@ -665,8 +667,9 @@ class Window(QWidget):
                 self.endingButtonlist[self.panel_index][i].clicked.connect(
                     partial(self.onendbuttonClicked, self.panel_index, i)
                 )
-                self.endingButtonlist[self.panel_index][i].setEnabled(False)  # Disable End button initially
-
+                self.endingButtonlist[self.panel_index][i].setEnabled(
+                    False
+                )  # Disable End button initially
 
                 self.ratingButtonslist[self.panel_index].append([])
 
@@ -679,7 +682,6 @@ class Window(QWidget):
                     )
                 for btn in self.ratingButtonslist[self.panel_index][i]:
                     btn.setEnabled(False)  # Disable Rating buttons initially
-
 
                 # self.yesButtonlist[self.panel_index].append(QRadioButton())
                 # self.yesButtonlist[self.panel_index][i].clicked.connect()
@@ -766,24 +768,43 @@ class Window(QWidget):
                     for line in lines:
                         rating_item = line.split(" : ")[0]
                         details = line.strip().split(" : ")[1]
-                        existing_score, existing_times = details.split(" | ") if " | " in details else (details, "Not set")
+                        existing_score, existing_times = (
+                            details.split(" | ")
+                            if " | " in details
+                            else (details, "Not set")
+                        )
 
                         if len(line.split(" : ")) == 2:
                             score = line.split(" : ")[1]
 
                             for i in range(len(self.groupButtonlist[self.panel_index])):
-                                if self.tasklist[self.panel_index][i].text() == rating_item:
-                                    for j in range(len(self.ratingButtonslist[self.panel_index][i])):
+                                if (
+                                    self.tasklist[self.panel_index][i].text()
+                                    == rating_item
+                                ):
+                                    for j in range(
+                                        len(self.ratingButtonslist[self.panel_index][i])
+                                    ):
                                         # Check if the score is a valid number before converting
-                                        if score.strip().isdigit():  # Check if score is numeric
-                                            if int(self.ratingButtonslist[self.panel_index][i][j].text()) == int(score):
-                                                self.ratingButtonslist[self.panel_index][i][j].setChecked(True)
+                                        if (
+                                            score.strip().isdigit()
+                                        ):  # Check if score is numeric
+                                            if int(
+                                                self.ratingButtonslist[
+                                                    self.panel_index
+                                                ][i][j].text()
+                                            ) == int(score):
+                                                self.ratingButtonslist[
+                                                    self.panel_index
+                                                ][i][j].setChecked(True)
                                         else:
                                             # Handle case when score is 'Not rated' or any other non-numeric value
                                             print(f"Skipping invalid score: {score}")
 
                                     # Update timestamp alongside score
-                                    new_lines.append(f"{rating_item} : {score} | {self.startingTimelist[self.panel_index][i].text()} to {self.endingTimelist[self.panel_index][i].text()}")
+                                    new_lines.append(
+                                        f"{rating_item} : {score} | {self.startingTimelist[self.panel_index][i].text()} to {self.endingTimelist[self.panel_index][i].text()}"
+                                    )
 
                 # Rewrite the file with the updated lines
                 with open(
@@ -796,23 +817,47 @@ class Window(QWidget):
                     f.writelines(new_lines)
             else:
                 if self.save_directory:
-                    with open("{}/{}_scores.txt".format(self.save_directory, self.form_title[self.panel_index].text()), "a") as out:
-
+                    with open(
+                        "{}/{}_scores.txt".format(
+                            self.save_directory,
+                            self.form_title[self.panel_index].text(),
+                        ),
+                        "a",
+                    ) as out:
                         for i in range(len(self.groupButtonlist[self.panel_index])):
-                            starting_time = self.startingTimelist[self.panel_index][i].text()
-                            ending_time = self.endingTimelist[self.panel_index][i].text()
+                            starting_time = self.startingTimelist[self.panel_index][
+                                i
+                            ].text()
+                            ending_time = self.endingTimelist[self.panel_index][
+                                i
+                            ].text()
                             score = None
 
                             # Check which radio button is selected and get the score
-                            for j in range(len(self.ratingButtonslist[self.panel_index][i])):
-                                if self.ratingButtonslist[self.panel_index][i][j].isChecked():
-                                    score = self.ratingButtonslist[self.panel_index][i][j].text()
+                            for j in range(
+                                len(self.ratingButtonslist[self.panel_index][i])
+                            ):
+                                if self.ratingButtonslist[self.panel_index][i][
+                                    j
+                                ].isChecked():
+                                    score = self.ratingButtonslist[self.panel_index][i][
+                                        j
+                                    ].text()
 
                             # Only write valid entries (if a rating and timestamps are set)
-                            if starting_time != "0" and ending_time != "0" and score is not None:
-                                out.write("{} : {} | Time: {} to {}\n".format(
-                                    self.tasklist[self.panel_index][i].text(), score, starting_time, ending_time))
-
+                            if (
+                                starting_time != "0"
+                                and ending_time != "0"
+                                and score is not None
+                            ):
+                                out.write(
+                                    "{} : {} | Time: {} to {}\n".format(
+                                        self.tasklist[self.panel_index][i].text(),
+                                        score,
+                                        starting_time,
+                                        ending_time,
+                                    )
+                                )
 
     def position_changed(self):
         self.timer.stop()
@@ -823,13 +868,12 @@ class Window(QWidget):
         # self.slider.setValue(pos)
 
     def get_position(self):
-        p = self.mediaPlayer.position()
+        return self.mediaPlayer.position()
 
     def duration_changed(self, duration):
         self.slider.setRange(0, duration)
 
     def set_position(self, position):
-
         # self.slider.setValue(position)
         self.timer.stop()
 
@@ -844,7 +888,6 @@ class Window(QWidget):
         self.label.setText("Error: " + self.mediaPlayer.errorString())
 
     def getSliderValue(self):
-
         value = int(self.mediaPlayer.get_position() * (self.media.get_duration()))
         value = value // 1000
         min, sec = divmod(value, 60)
@@ -853,7 +896,6 @@ class Window(QWidget):
         return "%d:%02d:%02d" % (hour, min, sec)
 
     def getDurationValue(self):
-
         value = int(self.media.get_duration())
         value = value // 1000
         min, sec = divmod(value, 60)
@@ -869,20 +911,21 @@ class Window(QWidget):
         # Enable End button after Start is clicked
         self.endingButtonlist[panel_index][i].setEnabled(True)
 
-
     def onendbuttonClicked(self, panel_index, i):
         value = self.getSliderValue()
         self.endingTimelist[panel_index][i].setText(str(value))
         self.endingTimelist[panel_index][i].setStyleSheet("color: white")
 
         # Check if the current panel has a rating list and it's valid before enabling
-        if self.ratingButtonslist[panel_index] and len(self.ratingButtonslist[panel_index]) > i:
+        if (
+            self.ratingButtonslist[panel_index]
+            and len(self.ratingButtonslist[panel_index]) > i
+        ):
             for btn in self.ratingButtonslist[panel_index][i]:
                 btn.setEnabled(True)
-        
+
         # Check save conditions after ending time is selected
         self.check_save_conditions(panel_index, i)
-
 
     def onRatingSelected(self, panel_index, i):
         # Trigger save condition check after rating is selected
@@ -893,34 +936,56 @@ class Window(QWidget):
         end_time = self.endingTimelist[panel_index][i].text()
 
         # Check if this is a Rating Panel
-        if self.ratingButtonslist[panel_index] and self.ratingButtonslist[panel_index][i]:
-            rating_selected = any(btn.isChecked() for btn in self.ratingButtonslist[panel_index][i])
+        if (
+            self.ratingButtonslist[panel_index]
+            and self.ratingButtonslist[panel_index][i]
+        ):
+            rating_selected = any(
+                btn.isChecked() for btn in self.ratingButtonslist[panel_index][i]
+            )
 
             # Enable Save button only if start time, end time, and rating are selected
             if start_time != "0" and end_time != "0" and rating_selected:
-                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                if (
+                    self.saveEntryBtn[panel_index]
+                    and len(self.saveEntryBtn[panel_index]) > i
+                ):
                     self.saveEntryBtn[panel_index][i].setEnabled(True)
             else:
-                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                if (
+                    self.saveEntryBtn[panel_index]
+                    and len(self.saveEntryBtn[panel_index]) > i
+                ):
                     self.saveEntryBtn[panel_index][i].setEnabled(False)
 
             # Always keep the Clear button enabled for rating panels
-            if self.clearEntryBtn[panel_index] and len(self.clearEntryBtn[panel_index]) > i:
+            if (
+                self.clearEntryBtn[panel_index]
+                and len(self.clearEntryBtn[panel_index]) > i
+            ):
                 self.clearEntryBtn[panel_index][i].setEnabled(True)
 
         else:
             # This is a Timestamp Panel; enable Save button only if both start and end times are set
             if start_time != "0" and end_time != "0":
-                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                if (
+                    self.saveEntryBtn[panel_index]
+                    and len(self.saveEntryBtn[panel_index]) > i
+                ):
                     self.saveEntryBtn[panel_index][i].setEnabled(True)
             else:
-                if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
+                if (
+                    self.saveEntryBtn[panel_index]
+                    and len(self.saveEntryBtn[panel_index]) > i
+                ):
                     self.saveEntryBtn[panel_index][i].setEnabled(False)
 
             # Keep Clear button always enabled
-            if self.clearEntryBtn[panel_index] and len(self.clearEntryBtn[panel_index]) > i:
+            if (
+                self.clearEntryBtn[panel_index]
+                and len(self.clearEntryBtn[panel_index]) > i
+            ):
                 self.clearEntryBtn[panel_index][i].setEnabled(True)
-
 
     def check_timestamp_save_conditions(self, panel_index, i):
         start_time = self.startingTimelist[panel_index][i].text()
@@ -937,7 +1002,9 @@ class Window(QWidget):
     def check_rating_save_conditions(self, panel_index, i):
         start_time = self.startingTimelist[panel_index][i].text()
         end_time = self.endingTimelist[panel_index][i].text()
-        rating_selected = any(btn.isChecked() for btn in self.ratingButtonslist[panel_index][i])
+        rating_selected = any(
+            btn.isChecked() for btn in self.ratingButtonslist[panel_index][i]
+        )
 
         # Enable Save button only if all conditions (start, end, rating) are met
         if start_time != "0" and end_time != "0" and rating_selected:
@@ -947,7 +1014,6 @@ class Window(QWidget):
 
         # Always enable the Clear button for rating panels
         self.clearEntryBtn[panel_index][i].setEnabled(True)
-
 
     def onsaveEntryBtnClicked(self, panel_index, i):
         self.saveEntryBtn[panel_index][i].setEnabled(False)
@@ -964,7 +1030,6 @@ class Window(QWidget):
         # Disable the buttons after saving
         self.clearEntryBtn[panel_index][i].setEnabled(True)
 
-
     def onclearEntryBtnClicked(self, panel_index, i):
         # Reset the start and end times
         self.startingTimelist[panel_index][i].setText("0")
@@ -974,7 +1039,6 @@ class Window(QWidget):
         if self.ratingButtonslist[panel_index]:
             # Temporarily disable the exclusivity of the button group
             self.groupButtonlist[panel_index][i].setExclusive(False)
-            
 
             # Uncheck all radio buttons in the rating panel
             for btn in self.ratingButtonslist[panel_index][i]:
@@ -998,8 +1062,6 @@ class Window(QWidget):
         # Disable the End button and re-enable the Start button
         self.startingButtonlist[panel_index][i].setEnabled(True)
         self.endingButtonlist[panel_index][i].setEnabled(False)
-
-
 
     def screenshotCall(self):
         # pause video if playing
@@ -1030,7 +1092,6 @@ class Window(QWidget):
         self.ImagesBuffer = image
 
     def update_ui(self):
-
         media_pos = int(self.mediaPlayer.get_position() * 100000)
         self.slider.setValue(media_pos)
         # No need to call this function if nothing is played
@@ -1055,7 +1116,7 @@ class Window(QWidget):
             self.mediaPlayer.set_rate(3)
 
     def save(self):
-        value = 0
+        # value = 0
 
         if self.num_panels != 0:
             for panel_index in range(1, self.num_panels + 1):
@@ -1092,7 +1153,7 @@ class Window(QWidget):
                     ]
                 )
             else:
-                labels = ",".join(l for l in self.segmentation_labels)
+                labels = ",".join(label for label in self.segmentation_labels)
                 print(labels)
                 subprocess.Popen(
                     [
@@ -1107,7 +1168,6 @@ class Window(QWidget):
                     ]
                 )
 
-     
     def save_rating_entry(self, panel_index, i):
         form_title = self.form_title[panel_index].text()
         task_name = self.tasklist[panel_index][i].text()
@@ -1122,15 +1182,18 @@ class Window(QWidget):
 
         # Save the entry to a file
         with open("{}/{}_scores.txt".format(self.save_directory, form_title), "a") as f:
-            f.write("{} : {} | Time: {} to {}\n".format(task_name, score, starting_time, ending_time))
+            f.write(
+                "{} : {} | Time: {} to {}\n".format(
+                    task_name, score, starting_time, ending_time
+                )
+            )
 
         # Check if saveEntryBtn exists before trying to disable it
         if self.saveEntryBtn[panel_index] and len(self.saveEntryBtn[panel_index]) > i:
             self.saveEntryBtn[panel_index][i].setEnabled(False)
 
-
     def clearPanels(self):
-        #value = 0
+        # value = 0
 
         # Iterate through all panels
         if self.num_panels != 0:
@@ -1138,7 +1201,9 @@ class Window(QWidget):
                 # Remove the scroll area (which contains the panel) from the layout
                 if self.scroll[panel_index]:
                     self.mainLayout.removeWidget(self.scroll[panel_index])
-                    self.scroll[panel_index].deleteLater()  # Delete the widget and its children
+                    self.scroll[
+                        panel_index
+                    ].deleteLater()  # Delete the widget and its children
 
                 # Reset internal panel tracking lists
                 self.groupbox[panel_index] = None
@@ -1159,13 +1224,12 @@ class Window(QWidget):
             # Reset the panel counter
             self.num_panels = 0
 
-
     def close(self):
         sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    
+
     window = Window()
     sys.exit(app.exec_())
